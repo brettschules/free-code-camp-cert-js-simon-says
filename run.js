@@ -20,44 +20,34 @@ class Game {
 
 
   generateRandomSequenceAndGamePlay() {
+    var displayColor = this.displayColor
+    var green = this.greenElement
+    var red = this.redElement
+    var blue = this.blueElement
+    var orange = this.orangeElement
     var i = 0;
       while (i < this.count) {
         (function(i) {
         setTimeout(function() {
           var currentRandNum = Math.floor(Math.random() * 4);
-          const colors = [this.greenElement, this.redElement, this.blueElement, this.orangeElement];
-          debugger
+          const colors = [green, red, blue, orange];
           var currentElement = colors[currentRandNum]
+          displayColor(currentElement)
           console.log(colors, currentRandNum)
         }, 1000 * i)
       })(i++)
     }
-    console.log([this.greenElement, this.redElement, this.blueElement, this.orangeElement]);
 
     this.checkIfPlaySelectedCorrect()
 
   }
 
-    // for (var i = 0; i < this.count; i++) {
-    //   // setTimeout(function(){
-    //   //   // var currentElement = colors[currentRandNum];
-    //   //   // this.displayColor(currentElement)
-    //   //   // this.elementsPicked.push(currentElement)
-    //   //   console.log('test')
-    //   // },  2 * 1000);
-    //
-    //   var delay = 1000;
-    //   setTimeout(function () {
-    //     console.log('test')
-    // }, delay);
-    // delay += 5000;
-
-    // }
-
-
   displayColor(currentElement) {
     console.log(currentElement)
     currentElement.style.opacity = '0.5'
+    setTimeout(function(){
+      currentElement.style.opacity = '1.0'
+      },  1000);
   }
 
   checkIfPlaySelectedCorrect() {

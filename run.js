@@ -29,6 +29,7 @@ class Game {
     var elementsPickedd = []
     var count = this.count
     var ctrl = this
+    this.index = 0
     var i = 0;
       while (i < this.count) {
         (function(i) {
@@ -38,9 +39,7 @@ class Game {
           var currentElement = colors[currentRandNum]
           elementsPickedd.push(currentElement)
           displayColor(currentElement, elementsPickedd)
-          if (i === count - 1) {
-            checkIfPlaySelectedCorrect(elementsPickedd, ctrl)
-          }
+          ctrl.elementsPicked = elementsPickedd
         }, 1000 * i)
       })(i++)
     }
@@ -50,11 +49,10 @@ class Game {
     currentElement.style.opacity = '0.5'
     setTimeout(function(){
       currentElement.style.opacity = '1.0'
-      },  1000);
+    },  1500);
   }
 
   checkIfPlaySelectedCorrect(elementsPickedd, ctrl) {
-    console.log(elementsPickedd, 'fd')
     ctrl.elementsPicked = elementsPickedd
     var i = 0
     if (true) {
@@ -65,18 +63,22 @@ class Game {
   }
   greenClicked() {
     var colorClicked = this;
-    console.log(colorClicked)
     if (this.elementsPicked.length !== 0) {
       if (this.greenElement === this.elementsPicked[this.index]) {
         this.index++
-        debugger
+
+      } else {
+        this.restart()
+
+        return false
+      }
+      if (this.elementsPicked.length === this.index) {
+        this.count++
+        this.generateRandomSequenceAndGamePlay()
       }
     }
 
-    if (this.elementsPicked.length - 1 === this.index) {
-      this.count++
-      this.generateRandomSequenceAndGamePlay()
-    }
+
 
   }
 
@@ -85,58 +87,84 @@ class Game {
     if (this.elementsPicked.length !== 0) {
       if (this.redElement === this.elementsPicked[this.index]) {
         this.index++
+
+      } else {
+        this.restart()
+
+        return false
+      }
+      if (this.elementsPicked.length === this.index) {
+        this.count++
+        this.generateRandomSequenceAndGamePlay()
       }
     }
 
-    if (this.elementsPicked.length - 1 === this.index) {
-      this.count++
-      this.generateRandomSequenceAndGamePlay()
-    }
+
 
   }
 
   blueClicked() {
     var colorClicked = this;
-    console.log(colorClicked)
     if (this.elementsPicked.length !== 0) {
       if (this.blueElement === this.elementsPicked[this.index]) {
         this.index++
+
+      } else {
+        this.restart()
+
+        return false
+      }
+      if (this.elementsPicked.length === this.index) {
+        this.count++
+        this.generateRandomSequenceAndGamePlay()
       }
     }
 
-    if (this.elementsPicked.length - 1 === this.index) {
-      this.count++
-      this.generateRandomSequenceAndGamePlay()
-    }
+
 
   }
 
   orangeClicked() {
     var colorClicked = this;
-    console.log(colorClicked)
     if (this.elementsPicked.length !== 0) {
       if (this.orangeElement === this.elementsPicked[this.index]) {
         this.index++
+
+      } else {
+        this.restart()
+
+        return false
+      }
+      if (this.elementsPicked.length === this.index) {
+        this.count++
+        this.generateRandomSequenceAndGamePlay()
       }
     }
 
-    if (this.elementsPicked.length - 1 === this.index) {
-      this.count++
-      this.generateRandomSequenceAndGamePlay()
-    }
+
 
   }
 
   restart() {
-
+    this.playButton = document.getElementById('play')
+    this.playButton.style.display = 'unset';
+    this.elementsPicked = []
   }
 }
 
 class App {
   constructor() {
+    this.playButton = document.getElementById('play')
+    this.playButton.addEventListener('click', this.start.bind(this))
+
+
+
+  }
+
+  start() {
+    this.playButton.style.display = 'none';
     var g = new Game()
     g.addEvents()
-
   }
 }
 
